@@ -27,14 +27,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Navbar background on scroll
+// Navbar background on scroll (updated for dark theme)
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        navbar.style.background = 'rgba(15, 23, 42, 0.98)';
+        navbar.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.3)';
     } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.background = 'rgba(15, 23, 42, 0.95)';
         navbar.style.boxShadow = 'none';
     }
 });
@@ -61,27 +61,175 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
+// Enhanced interactive features for dark theme portfolio
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in-up');
-        }
-    });
-}, observerOptions);
-
-// Observe elements for animation
+// Cursor trail effect
 document.addEventListener('DOMContentLoaded', () => {
-    const elementsToAnimate = document.querySelectorAll('.project-card, .skill-category, .stat, .about-text, .experience-item, .achievement-card');
-    elementsToAnimate.forEach(element => {
-        observer.observe(element);
+    // Create cursor trail
+    let mouseTrail = [];
+    const trailLength = 5;
+    
+    document.addEventListener('mousemove', (e) => {
+        mouseTrail.push({ x: e.clientX, y: e.clientY });
+        if (mouseTrail.length > trailLength) {
+            mouseTrail.shift();
+        }
+        
+        // Create trail elements
+        const trail = document.querySelector('.cursor-trail');
+        if (trail) {
+            trail.remove();
+        }
+        
+        const newTrail = document.createElement('div');
+        newTrail.className = 'cursor-trail';
+        newTrail.style.cssText = `
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        `;
+        
+        mouseTrail.forEach((point, index) => {
+            const dot = document.createElement('div');
+            dot.style.cssText = `
+                position: absolute;
+                width: ${8 - index}px;
+                height: ${8 - index}px;
+                background: #6366f1;
+                border-radius: 50%;
+                left: ${point.x}px;
+                top: ${point.y}px;
+                opacity: ${(trailLength - index) / trailLength};
+                transform: translate(-50%, -50%);
+                transition: opacity 0.3s ease;
+            `;
+            newTrail.appendChild(dot);
+        });
+        
+        document.body.appendChild(newTrail);
+    });
+    
+    // Parallax effect for hero section
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('.hero');
+        
+        parallaxElements.forEach(element => {
+            const speed = 0.5;
+            element.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
+    
+    // Intersection Observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all sections for scroll animations
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+    });
+    
+    // Enhanced card hover effects
+    document.querySelectorAll('.project-card, .achievement-card').forEach(card => {
+        card.addEventListener('mouseenter', (e) => {
+            e.target.style.transform = 'translateY(-10px) scale(1.02)';
+            e.target.style.boxShadow = '0 20px 40px rgba(99, 102, 241, 0.3)';
+        });
+        
+        card.addEventListener('mouseleave', (e) => {
+            e.target.style.transform = 'translateY(0) scale(1)';
+            e.target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+        });
+    });
+    
+    // Typing animation for hero title
+    const heroTitle = document.querySelector('.hero-title');
+    if (heroTitle) {
+        const text = heroTitle.textContent;
+        heroTitle.textContent = '';
+        let index = 0;
+        
+        const typeWriter = () => {
+            if (index < text.length) {
+                heroTitle.textContent += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, 100);
+            }
+        };
+        
+        setTimeout(typeWriter, 1000);
+    }
+    
+    // Button ripple effect
+    document.querySelectorAll('.btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                left: ${x}px;
+                top: ${y}px;
+                background: rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            `;
+            
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
     });
 });
+
+// Add CSS for ripple animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes ripple {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+    
+    .animate-in {
+        animation: slideInUp 0.8s ease-out forwards;
+    }
+    
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+`;
+document.head.appendChild(style);
 
 // Contact form handling
 const contactForm = document.querySelector('.contact-form');
