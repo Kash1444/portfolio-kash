@@ -165,7 +165,7 @@ body {
 }
 
 
-/* Modern Hero Section */
+/* Modern Hero Section - Enhanced */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -175,6 +175,72 @@ body {
     position: relative;
     overflow: hidden;
     padding: 6rem 0 4rem 0;
+}
+
+.hero-bg-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+.floating-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.shape-1 {
+    width: 120px;
+    height: 120px;
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 80px;
+    height: 80px;
+    top: 60%;
+    right: 15%;
+    animation-delay: 2s;
+}
+
+.shape-3 {
+    width: 100px;
+    height: 100px;
+    bottom: 30%;
+    left: 20%;
+    animation-delay: 4s;
+}
+
+.shape-4 {
+    width: 60px;
+    height: 60px;
+    top: 40%;
+    right: 30%;
+    animation-delay: 1s;
+}
+
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.1;
+    }
+    50% { 
+        transform: translateY(-20px) rotate(180deg);
+        opacity: 0.2;
+    }
 }
 
 .hero::before {
@@ -188,8 +254,13 @@ body {
         radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.18) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.13) 0%, transparent 50%),
         radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.09) 0%, transparent 50%);
-    animation: pulse 8s ease-in-out infinite;
+    animation: pulseGlow 8s ease-in-out infinite;
     z-index: 0;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(1.02); }
 }
 
 .hero::after {
@@ -204,11 +275,6 @@ body {
     z-index: 0;
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.85; }
-}
-
 .hero-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -221,18 +287,308 @@ body {
     padding: 0 2rem;
 }
 
-.modern-title {
+/* Hero Badge */
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.1s both;
+    backdrop-filter: blur(10px);
+}
+
+.hero-badge i {
+    font-size: 1rem;
+}
+
+/* Enhanced Greeting */
+.modern-hero-greeting {
+    font-size: 1.3rem;
+    color: var(--accent-color);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.03em;
+    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.2s both;
+    display: block;
+}
+
+.wave {
+    display: inline-block;
+    animation: wave 2s linear infinite;
+    transform-origin: 70% 70%;
+    margin-right: 0.5rem;
+}
+
+@keyframes wave {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(14deg); }
+    20% { transform: rotate(-8deg); }
+    30% { transform: rotate(14deg); }
+    40% { transform: rotate(-4deg); }
+    50% { transform: rotate(10deg); }
+    60% { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Typing Effect Title */
+.modern-title.typing-effect {
     font-size: 3.5rem;
     font-weight: 900;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
     line-height: 1.13;
-    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1);
+    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.3s both;
     word-break: break-word;
     white-space: normal;
     hyphens: auto;
     max-width: 100%;
     letter-spacing: -1px;
+    position: relative;
 }
+
+/* Role Switcher */
+.role-switcher {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-gray);
+    font-weight: 600;
+    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.4s both;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.role-prefix {
+    color: var(--text-gray);
+}
+
+.role-text {
+    color: var(--primary-color);
+    font-weight: 700;
+    min-width: 180px;
+    text-align: left;
+}
+
+.cursor-blink {
+    color: var(--accent-color);
+    animation: blink 1s infinite;
+    font-weight: 300;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Hero Stats */
+.hero-stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.5s both;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Enhanced Buttons */
+.btn-enhanced {
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.btn-enhanced .btn-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.btn-enhanced:hover .btn-glow {
+    transform: translateX(100%);
+}
+
+.btn-enhanced span {
+    position: relative;
+    z-index: 2;
+}
+
+.btn-enhanced i {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.btn-enhanced:hover i {
+    transform: translateX(5px);
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    margin-top: 3rem;
+    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.7s both;
+}
+
+.scroll-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.scroll-link:hover {
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.scroll-link i {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+/* Enhanced Hero Image */
+.modern-hero-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: slideInRight 1s ease-out 0.8s both;
+    position: relative;
+}
+
+.image-decoration {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.decoration-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ring-1 {
+    width: 400px;
+    height: 400px;
+    border-color: rgba(99, 102, 241, 0.2);
+    animation: rotate 20s linear infinite;
+}
+
+.ring-2 {
+    width: 450px;
+    height: 450px;
+    border-color: rgba(6, 182, 212, 0.15);
+    animation: rotate 25s linear infinite reverse;
+}
+
+.ring-3 {
+    width: 500px;
+    height: 500px;
+    border-color: rgba(139, 92, 246, 0.1);
+    animation: rotate 30s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.profile-container {
+    position: relative;
+    z-index: 2;
+    border-radius: 50%;
+    padding: 6px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    box-shadow: 0 8px 32px 0 rgba(99,102,241,0.18), 0 1.5px 8px 0 rgba(6,182,212,0.10);
+    transition: all 0.3s ease;
+}
+
+.profile-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 48px 0 rgba(99,102,241,0.25), 0 2px 12px 0 rgba(6,182,212,0.13);
+}
+
+/* Tech Icons Around Profile */
+.tech-icons {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.tech-icon {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    animation: float 4s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+.tech-icon:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+}
+
+.icon-1 { top: 10%; right: 20%; animation-delay: 0s; }
+.icon-2 { top: 30%; right: 5%; animation-delay: 1s; }
+.icon-3 { bottom: 30%; right: 10%; animation-delay: 2s; }
+.icon-4 { bottom: 10%; left: 20%; animation-delay: 3s; }
+.icon-5 { top: 20%; left: 10%; animation-delay: 4s; }
+.icon-6 { top: 50%; left: 5%; animation-delay: 5s; }
 
 .name-gradient {
     background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--secondary-color));
@@ -1322,6 +1678,18 @@ section {
         width: 210px;
         height: 210px;
     }
+    .tech-icons {
+        display: none; /* Hide floating tech icons on smaller screens */
+    }
+    .decoration-ring {
+        display: none; /* Hide decoration rings on smaller screens */
+    }
+    .hero-stats {
+        gap: 1rem;
+    }
+    .stat-number {
+        font-size: 1.5rem;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1377,9 +1745,22 @@ section {
         width: 100%;
     }
     .modern-title {
-        font-size: 1.7rem;
+        font-size: 1.8rem;
         margin-bottom: 1rem;
         margin-top: 1rem;
+    }
+    .role-switcher {
+        font-size: 1.1rem;
+        justify-content: center;
+    }
+    .hero-badge {
+        justify-content: center;
+        margin: 0 auto 1rem;
+        max-width: fit-content;
+    }
+    .hero-stats {
+        justify-content: center;
+        gap: 1.5rem;
     }
     .modern-hero-image {
         width: 200px;
@@ -1390,6 +1771,20 @@ section {
         width: 200px;
         height: 200px;
     }
+    .profile-container {
+        width: 200px;
+        height: 200px;
+    }
+    .section-title {
+        font-size: 2rem;
+    }
+    section {
+        padding: 4rem 0;
+    }
+    .floating-shapes {
+        display: none; /* Hide floating shapes on mobile */
+    }
+    /* ...existing mobile styles... */
     .section-title {
         font-size: 2rem;
     }

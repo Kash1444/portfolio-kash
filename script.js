@@ -256,32 +256,186 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Add CSS for ripple animation
-const style = document.createElement('style');
-style.textContent = `
+// Enhanced Hero Animations and Effects
+
+// Role Switcher Animation
+const roles = [
+    'CS Student', 
+    'ML Engineer', 
+    'IoT Enthusiast', 
+    'Problem Solver',
+    'Tech Innovator',
+    'Full Stack Dev'
+];
+
+let currentRoleIndex = 0;
+const roleTextElement = document.getElementById('role-text');
+
+function switchRole() {
+    if (roleTextElement) {
+        roleTextElement.style.opacity = '0';
+        setTimeout(() => {
+            currentRoleIndex = (currentRoleIndex + 1) % roles.length;
+            roleTextElement.textContent = roles[currentRoleIndex];
+            roleTextElement.style.opacity = '1';
+        }, 300);
+    }
+}
+
+// Start role switching after page load
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        setInterval(switchRole, 3000); // Switch every 3 seconds
+    }, 2000); // Start after 2 seconds
+});
+
+// Typing Effect for Name
+function createTypingEffect() {
+    const nameElement = document.querySelector('.name-gradient');
+    if (nameElement) {
+        const fullText = nameElement.textContent;
+        nameElement.textContent = '';
+        nameElement.style.borderRight = '2px solid var(--primary-color)';
+        
+        let i = 0;
+        const typeWriter = () => {
+            if (i < fullText.length) {
+                nameElement.textContent += fullText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            } else {
+                // Remove cursor after typing is complete
+                setTimeout(() => {
+                    nameElement.style.borderRight = 'none';
+                }, 1000);
+            }
+        };
+        
+        setTimeout(typeWriter, 1000); // Start typing after 1 second
+    }
+}
+
+// Enhanced Button Ripple Effect
+function addRippleEffect() {
+    const buttons = document.querySelectorAll('.btn-enhanced');
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.style.position = 'absolute';
+            ripple.style.borderRadius = '50%';
+            ripple.style.background = 'rgba(255, 255, 255, 0.5)';
+            ripple.style.transform = 'scale(0)';
+            ripple.style.animation = 'ripple 0.6s linear';
+            ripple.style.pointerEvents = 'none';
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+}
+
+// Floating Particles Effect
+function createFloatingParticles() {
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'floating-particle';
+            particle.style.cssText = `
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: var(--primary-color);
+                border-radius: 50%;
+                opacity: 0.3;
+                animation: floatParticle ${5 + Math.random() * 10}s linear infinite;
+                animation-delay: ${Math.random() * 5}s;
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+                z-index: 1;
+            `;
+            hero.appendChild(particle);
+        }
+    }
+}
+
+// Add CSS for particle animation
+const particleStyles = document.createElement('style');
+particleStyles.textContent = `
+    @keyframes floatParticle {
+        0% {
+            transform: translateY(100vh) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 0.3;
+        }
+        90% {
+            opacity: 0.3;
+        }
+        100% {
+            transform: translateY(-100vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+    
     @keyframes ripple {
         to {
             transform: scale(4);
             opacity: 0;
         }
     }
-    
-    .animate-in {
-        animation: slideInUp 0.8s ease-out forwards;
-    }
-    
-    @keyframes slideInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
 `;
-document.head.appendChild(style);
+document.head.appendChild(particleStyles);
+
+// Parallax Effect for Hero Elements
+function initParallax() {
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const hero = document.querySelector('.hero');
+        const heroHeight = hero ? hero.offsetHeight : 0;
+        
+        if (scrolled < heroHeight) {
+            const shapes = document.querySelectorAll('.shape');
+            const techIcons = document.querySelectorAll('.tech-icon');
+            const decorationRings = document.querySelectorAll('.decoration-ring');
+            
+            shapes.forEach((shape, index) => {
+                const speed = 0.5 + (index * 0.1);
+                shape.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+            
+            techIcons.forEach((icon, index) => {
+                const speed = 0.3 + (index * 0.05);
+                icon.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+            
+            decorationRings.forEach((ring, index) => {
+                const speed = 0.2 + (index * 0.1);
+                ring.style.transform = `translate(-50%, -50%) translateY(${scrolled * speed}px)`;
+            });
+        }
+    });
+}
+
+// Initialize all hero enhancements
+document.addEventListener('DOMContentLoaded', () => {
+    createTypingEffect();
+    addRippleEffect();
+    createFloatingParticles();
+    initParallax();
+});
 
 // Contact form handling
 const contactForm = document.querySelector('.contact-form');
