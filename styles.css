@@ -461,26 +461,31 @@ section:nth-child(even) {
 .stat {
     text-align: center;
     padding: 1.5rem;
-    background: white;
+    background: var(--bg-card);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-lg);
     transition: var(--transition);
+    border: 1px solid var(--border-color);
 }
 
 .stat:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-glow);
+    border-color: var(--primary-color);
+    background: var(--bg-card-hover);
 }
 
 .stat h3 {
     font-size: 2rem;
     color: var(--primary-color);
     margin-bottom: 0.5rem;
+    font-weight: 700;
 }
 
 .stat p {
-    color: var(--text-light);
+    color: var(--text-gray);
     margin: 0;
+    font-weight: 500;
 }
 
 /* Skills Section */
@@ -491,22 +496,26 @@ section:nth-child(even) {
 }
 
 .skill-category {
-    background: white;
+    background: var(--bg-card);
     padding: 2rem;
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-lg);
     transition: var(--transition);
+    border: 1px solid var(--border-color);
 }
 
 .skill-category:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-glow);
+    border-color: var(--primary-color);
+    background: var(--bg-card-hover);
 }
 
 .skill-category h3 {
-    color: var(--primary-color);
+    color: var(--text-light);
     margin-bottom: 1rem;
     font-size: 1.3rem;
+    font-weight: 600;
 }
 
 .skill-items {
@@ -526,7 +535,7 @@ section:nth-child(even) {
 
 /* Projects Section */
 .projects {
-    background: var(--bg-light);
+    background: var(--bg-darker);
 }
 
 .projects-grid {
@@ -689,32 +698,47 @@ section:nth-child(even) {
 
 /* Contact Form */
 .contact-form {
-    background: white;
+    background: var(--bg-card);
     padding: 2rem;
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
 }
 
 .form-group {
     margin-bottom: 1.5rem;
 }
 
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 12px 16px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--border-color);
     border-radius: var(--border-radius);
     font-family: inherit;
     font-size: 1rem;
     transition: var(--transition);
+    background: var(--bg-darker);
+    color: var(--text-light);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-muted);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
 .form-group textarea {
@@ -724,10 +748,11 @@ section:nth-child(even) {
 
 /* Footer */
 .footer {
-    background: var(--text-dark);
-    color: white;
+    background: var(--bg-darker);
+    color: var(--text-light);
     text-align: center;
     padding: 2rem 0;
+    border-top: 1px solid var(--border-color);
 }
 
 /* Experience Section */
