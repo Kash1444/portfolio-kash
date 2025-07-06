@@ -40,16 +40,16 @@ body {
 }
 
 
-/* Modern Navigation */
+/* Modern Navigation - Improved Accessibility */
 .navbar {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(15, 23, 42, 0.92);
+    background: rgba(15, 23, 42, 0.95);
     backdrop-filter: blur(24px) saturate(180%);
     border-bottom: 1.5px solid rgba(99, 102, 241, 0.08);
     z-index: 1000;
-    padding: 0.7rem 0;
+    padding: 0.8rem 0;
     transition: var(--transition);
     box-shadow: 0 2px 24px 0 rgba(99,102,241,0.07);
 }
@@ -57,6 +57,13 @@ body {
 .navbar:hover {
     background: rgba(15, 23, 42, 0.98);
     box-shadow: 0 4px 32px 0 rgba(99,102,241,0.13);
+}
+
+/* Ensure navbar stays on top while scrolling */
+.navbar.scrolled {
+    background: rgba(15, 23, 42, 0.98);
+    box-shadow: 0 4px 32px 0 rgba(99,102,241,0.15);
+    padding: 0.6rem 0;
 }
 
 .nav-container {
@@ -74,23 +81,18 @@ body {
     gap: 0.7rem;
 }
 
-.logo-gradient {
-    font-size: 2.1rem;
-    font-weight: 800;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
-    letter-spacing: 1px;
-    transition: var(--transition);
+.nav-logo a {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
     text-decoration: none;
-    line-height: 1;
+    transition: var(--transition);
+    position: relative;
 }
 
-.logo-gradient:hover {
-    filter: brightness(1.15) drop-shadow(0 0 8px var(--primary-color));
-    transform: scale(1.04) rotate(-2deg);
+.nav-logo a:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
 }
 
 .nav-menu {
@@ -287,27 +289,6 @@ body {
     padding: 0 2rem;
 }
 
-/* Hero Badge */
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    color: var(--primary-color);
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.1s both;
-    backdrop-filter: blur(10px);
-}
-
-.hero-badge i {
-    font-size: 1rem;
-}
-
 /* Enhanced Greeting */
 .modern-hero-greeting {
     font-size: 1.3rem;
@@ -315,7 +296,7 @@ body {
     font-weight: 700;
     margin-bottom: 0.5rem;
     letter-spacing: 0.03em;
-    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.2s both;
+    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.1s both;
     display: block;
 }
 
@@ -343,7 +324,7 @@ body {
     font-weight: 900;
     margin-bottom: 1.5rem;
     line-height: 1.13;
-    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.3s both;
+    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.2s both;
     word-break: break-word;
     white-space: normal;
     hyphens: auto;
@@ -358,7 +339,7 @@ body {
     margin-bottom: 1.5rem;
     color: var(--text-gray);
     font-weight: 600;
-    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.4s both;
+    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.3s both;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -373,6 +354,7 @@ body {
     font-weight: 700;
     min-width: 180px;
     text-align: left;
+    transition: opacity 0.3s ease;
 }
 
 .cursor-blink {
@@ -391,7 +373,7 @@ body {
     display: flex;
     gap: 2rem;
     margin-bottom: 2rem;
-    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.5s both;
+    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.4s both;
 }
 
 .stat-item {
@@ -414,12 +396,23 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Enhanced Buttons */
+/* Enhanced Buttons - Better Z-index */
+.hero-buttons {
+    display: flex;
+    gap: 1.3rem;
+    flex-wrap: wrap;
+    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.5s both;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 10;
+}
+
 .btn-enhanced {
     position: relative;
     overflow: hidden;
     transform-style: preserve-3d;
     perspective: 1000px;
+    z-index: 10;
 }
 
 .btn-enhanced .btn-glow {
@@ -454,8 +447,8 @@ body {
 
 /* Scroll Indicator */
 .scroll-indicator {
-    margin-top: 3rem;
-    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.7s both;
+    margin-top: 2rem;
+    animation: slideInLeft 1s cubic-bezier(0.4,0,0.2,1) 0.6s both;
 }
 
 .scroll-link {
@@ -545,11 +538,38 @@ body {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
     box-shadow: 0 8px 32px 0 rgba(99,102,241,0.18), 0 1.5px 8px 0 rgba(6,182,212,0.10);
     transition: all 0.3s ease;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .profile-container:hover {
     transform: scale(1.05);
     box-shadow: 0 12px 48px 0 rgba(99,102,241,0.25), 0 2px 12px 0 rgba(6,182,212,0.13);
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: none;
+    background: transparent;
+    display: block;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 4rem;
 }
 
 /* Tech Icons Around Profile */
@@ -1753,23 +1773,9 @@ section {
         font-size: 1.1rem;
         justify-content: center;
     }
-    .hero-badge {
-        justify-content: center;
-        margin: 0 auto 1rem;
-        max-width: fit-content;
-    }
     .hero-stats {
         justify-content: center;
         gap: 1.5rem;
-    }
-    .modern-hero-image {
-        width: 200px;
-        height: 200px;
-        padding: 0.2rem;
-    }
-    .profile-image, .image-placeholder {
-        width: 200px;
-        height: 200px;
     }
     .profile-container {
         width: 200px;

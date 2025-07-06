@@ -613,3 +613,49 @@ document.querySelectorAll('a[href^="http"]').forEach(link => {
     link.setAttribute('target', '_blank');
     link.setAttribute('rel', 'noopener noreferrer');
 });
+
+// Improved Navigation Scroll Behavior
+function improveNavbarScrolling() {
+    const navbar = document.querySelector('.navbar');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+}
+
+// Fix profile image loading
+function fixProfileImage() {
+    const profileImage = document.querySelector('.profile-image');
+    const placeholder = document.querySelector('.image-placeholder');
+    
+    if (profileImage) {
+        profileImage.onload = function() {
+            this.style.display = 'block';
+            if (placeholder) {
+                placeholder.style.display = 'none';
+            }
+        };
+        
+        profileImage.onerror = function() {
+            this.style.display = 'none';
+            if (placeholder) {
+                placeholder.style.display = 'flex';
+            }
+        };
+        
+        // Force reload if src is already set
+        if (profileImage.src) {
+            profileImage.src = profileImage.src;
+        }
+    }
+}
+
+// Initialize improvements
+document.addEventListener('DOMContentLoaded', () => {
+    improveNavbarScrolling();
+    fixProfileImage();
+});
