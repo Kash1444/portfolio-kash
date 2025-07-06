@@ -38,7 +38,7 @@ Professional portfolio website showcasing my journey as a Computer Science stude
 3. No build process required - it's a static website!
 
 ## 📱 Live Demo
-Visit the live website: [Portfolio Link]
+Visit the live website: **[https://kash1444.github.io/portfolio-kash/](https://kash1444.github.io/portfolio-kash/)**
 
 ## 📞 Contact
 - **Email**: dharmaprakash144@gmail.com
