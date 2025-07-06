@@ -997,55 +997,6 @@ section:nth-child(even) {
     }
 }
 
-    .hero-buttons {
-        justify-content: center;
-    }
-
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .projects-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .about-stats {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    }
-
-    .container {
-        padding: 0 1rem;
-    }
-
-    section {
-        padding: 3rem 0;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-title {
-        font-size: 2rem;
-    }
-
-    .section-title {
-        font-size: 2rem;
-    }
-
-    .image-placeholder {
-        width: 200px;
-        height: 200px;
-    }
-
-    .image-placeholder i {
-        font-size: 4rem;
-    }
-}
-
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;
