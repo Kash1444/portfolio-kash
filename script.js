@@ -27,16 +27,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Navbar background on scroll (updated for dark theme)
+// Navbar background on scroll (updated for theme support)
 window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(15, 23, 42, 0.98)';
-        navbar.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.3)';
-    } else {
-        navbar.style.background = 'rgba(15, 23, 42, 0.95)';
-        navbar.style.boxShadow = 'none';
-    }
+    const currentTheme = html.getAttribute('data-theme');
+    updateNavbarForTheme(currentTheme);
 });
 
 // Active navigation link highlighting
@@ -407,3 +401,59 @@ document.querySelectorAll('a[href^="http"]').forEach(link => {
     link.setAttribute('target', '_blank');
     link.setAttribute('rel', 'noopener noreferrer');
 });
+
+// Theme Toggle Functionality
+const themeToggle = document.getElementById('theme-toggle');
+const html = document.documentElement;
+
+// Check for saved theme preference or default to dark theme
+const currentTheme = localStorage.getItem('theme') || 'dark';
+html.setAttribute('data-theme', currentTheme);
+
+// Update theme toggle icon based on current theme
+function updateThemeIcon() {
+    const icon = themeToggle.querySelector('i');
+    if (html.getAttribute('data-theme') === 'light') {
+        icon.className = 'fas fa-moon';
+    } else {
+        icon.className = 'fas fa-sun';
+    }
+}
+
+// Initialize theme icon
+updateThemeIcon();
+
+// Theme toggle event listener
+themeToggle.addEventListener('click', () => {
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon();
+    
+    // Update navbar background based on theme
+    updateNavbarForTheme(newTheme);
+});
+
+// Update navbar background based on theme
+function updateNavbarForTheme(theme) {
+    const navbar = document.querySelector('.navbar');
+    if (theme === 'light') {
+        if (window.scrollY > 100) {
+            navbar.style.background = 'rgba(249, 250, 251, 0.98)';
+            navbar.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.1)';
+        } else {
+            navbar.style.background = 'rgba(249, 250, 251, 0.95)';
+            navbar.style.boxShadow = 'none';
+        }
+    } else {
+        if (window.scrollY > 100) {
+            navbar.style.background = 'rgba(15, 23, 42, 0.98)';
+            navbar.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.3)';
+        } else {
+            navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+            navbar.style.boxShadow = 'none';
+        }
+    }
+}
