@@ -90,7 +90,7 @@ body {
     border-radius: var(--border-radius);
 }
 
-.nav-link:hover {
+.nav-link:hover, .nav-link.active {
     color: var(--primary-color);
     background: rgba(99, 102, 241, 0.1);
     transform: translateY(-2px);
@@ -108,23 +108,8 @@ body {
     transform: translateX(-50%);
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after, .nav-link.active::after {
     width: 80%;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--primary-color);
-    transition: var(--transition);
-}
-
-.nav-link:hover::after {
-    width: 100%;
 }
 
 .nav-toggle {
@@ -551,16 +536,18 @@ section:nth-child(even) {
 }
 
 .project-card {
-    background: white;
+    background: var(--bg-card);
     border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-lg);
     transition: var(--transition);
+    border: 1px solid var(--border-color);
 }
 
 .project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-glow);
+    border-color: var(--primary-color);
 }
 
 .project-image {
@@ -592,13 +579,14 @@ section:nth-child(even) {
 }
 
 .project-content h3 {
-    color: var(--text-dark);
+    color: var(--text-light);
     margin-bottom: 0.5rem;
     font-size: 1.3rem;
+    font-weight: 600;
 }
 
 .project-content p {
-    color: var(--text-light);
+    color: var(--text-gray);
     margin-bottom: 1rem;
     line-height: 1.6;
 }
@@ -611,12 +599,13 @@ section:nth-child(even) {
 }
 
 .tag {
-    background: var(--bg-light);
-    color: var(--text-dark);
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--primary-color);
     padding: 0.3rem 0.8rem;
     border-radius: 15px;
     font-size: 0.8rem;
     font-weight: 500;
+    border: 1px solid rgba(99, 102, 241, 0.2);
 }
 
 .project-links {
@@ -743,7 +732,7 @@ section:nth-child(even) {
 
 /* Experience Section */
 .experience {
-    background: var(--bg-light);
+    background: var(--bg-darker);
 }
 
 .experience-content {
@@ -752,17 +741,20 @@ section:nth-child(even) {
 }
 
 .experience-item {
-    background: white;
+    background: var(--bg-card);
     padding: 2rem;
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-lg);
     margin-bottom: 2rem;
     transition: var(--transition);
+    border: 1px solid var(--border-color);
 }
 
 .experience-item:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-glow);
+    border-color: var(--primary-color);
+    background: var(--bg-card-hover);
 }
 
 .experience-header {
@@ -775,9 +767,10 @@ section:nth-child(even) {
 }
 
 .experience-header h3 {
-    color: var(--primary-color);
+    color: var(--text-light);
     font-size: 1.3rem;
     margin: 0;
+    font-weight: 600;
 }
 
 .company-info {
@@ -789,11 +782,11 @@ section:nth-child(even) {
 
 .company {
     font-weight: 600;
-    color: var(--text-dark);
+    color: var(--primary-color);
 }
 
 .duration {
-    color: var(--text-light);
+    color: var(--text-muted);
     font-size: 0.9rem;
 }
 
@@ -806,7 +799,7 @@ section:nth-child(even) {
     position: relative;
     padding-left: 1.5rem;
     margin-bottom: 0.5rem;
-    color: var(--text-light);
+    color: var(--text-gray);
     line-height: 1.6;
 }
 
@@ -826,52 +819,69 @@ section:nth-child(even) {
 }
 
 .achievement-card {
-    background: white;
-    padding: 1.5rem;
+    background: var(--bg-card);
+    padding: 2rem 1.5rem;
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-lg);
     text-align: center;
     transition: var(--transition);
-    border-top: 4px solid var(--primary-color);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.achievement-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
 }
 
 .achievement-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-glow);
+    border-color: var(--primary-color);
+    background: var(--bg-card-hover);
 }
 
 .achievement-icon {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1rem;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
 }
 
 .achievement-icon i {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     color: white;
 }
 
 .achievement-card h4 {
-    color: var(--text-dark);
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .achievement-card p {
     color: var(--primary-color);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     font-weight: 600;
+    font-size: 1rem;
 }
 
 .achievement-desc {
-    color: var(--text-light);
+    color: var(--text-muted);
     font-size: 0.9rem;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 /* Responsive Design */
